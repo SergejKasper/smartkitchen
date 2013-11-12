@@ -1,0 +1,16 @@
+<div jqm-page>
+    <div jqm-header> 
+        <a jqm-button class = "ui-btn-left" href = "#/">
+        Home
+        </a>
+        <h1>{{recepie.name}}</h1> 
+    </div>
+    <!-- Recepie Details-->
+    <div class="" style="top:138px;">
+        <ul class="">
+            <li ng-repeat="ingredient in recepie.ingredients | filter:query | orderBy:orderProp" class="">
+                {{ingredient}}
+            </li>
+        </ul>
+    </div>
+</div>

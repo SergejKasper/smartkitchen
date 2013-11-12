@@ -1,0 +1,13 @@
+.button-container {
+	width: 80%; 
+	margin: auto; 
+}
+.button {
+    width: 100%; 
+    margin: auto; 
+}
+h3{
+	margin: 10px auto;
+	text-align: center;
+	color: #c1c1c1;
+}
