@@ -2,11 +2,53 @@
 <html>
   <head>
     <title><%=title %></title>
-    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
   </head>
   
   <body>
-    <h1><%=title %></h1>
-    <p>Welcome to <%=title %></p>
+  	<div class="container">
+  		  	<div class="jumbotron">
+	    <h1><%=title %></h1>
+	    <h3 class="">Welcome Admin</h3>
+  	</div>
+  	<div class="row">
+  		<div class="col-md-12">
+  			<% if (message) { %>
+  				<% if (message.error) { %>
+    	    		<div class="alert alert-danger">An error occured:<%=message.content %></div>
+    	    	<%}else{ %>
+    	    		<div class="alert alert-success"><%=message.content %></div>
+    	    	<%} %>
+    		<%} %>
+  		</div>
+  	</div>
+  	<div class="row">
+  		<div class="col-md-6">
+  			<div class="thumbnail">
+  				<div class="caption">
+  					<h3> Delete all recepies</h3>
+  					<p>You can remove all recepies from this database with one click. Be carefull. Not meant for production ;)</p>
+  					<form method="GET" action="/deleteAllRecepies">
+		    			<input class="btn btn-warning btn-lg" type="submit" value="Delete"/>
+		    		</form>
+  				</div>
+  			</div>
+  		</div>
+  		<div class="col-md-6">
+  			<div class="thumbnail">
+  				<div class="caption">
+  					<h3> Insert samples</h3>
+  					<p>Insert some sample recepies pressing this button. The values are randomly generated.</p>
+		  			<form method="GET" action="/addRandomRecepie">
+				    	<input class="btn btn-primary btn-lg" type="submit" value="Insert"/>
+				    </form>
+  				</div>
+  			</div>
+  		</div>
+  	</div>
+  	</div>
   </body>
 </html>

@@ -34,7 +34,7 @@ c. Run the server. You can also pass a custom PORT to listen , if you like
 $ cd smartkitchen/server
 $ PORT=5000 node app.js
 ```
-d. access the API at http://localhost:4000/recepies, with 4000 beeing the default port
+d. access the API at http://localhost:4000/recepies, with 4000 being the default port
 
 ### Step 2: Client
 ==========
@@ -61,11 +61,13 @@ The index.html is picked up, when you open http://localhost:9000
 ### Step 3: App
 ==========
 b. Install PhoneGap via npm and go into the app's folder
+
 ```sh
 $ cd smartkitchen/app/SmartKitchen
 $ sudo npm install g cordova
 ```
 c. Check for the istalled and availible platforms 
+
 ```sh
 cordova platform
 ```
@@ -77,7 +79,8 @@ $ cordova platform add [myPlatform]
 
 e. Setting the path to the API. TODO: Externelize the path settings.
 
-Open smartkitchen/app/www/js/services.js in your editor/ide of trust and set the ip and port from within the angular service to the external ip of the Machine and the port you are running the server on. If the machine with the server and the device are both within the LAN, the conf might be something like:
+Open smartkitchen/app/www/js/services.js in your editor/ide of trust and set the ip and port from within the angular service to the external ip of the Machine and the port you are running the server on. If the machine with the server and the device are both within the LAN, the configuration might be something like the following.
+
  ```sh
 		function($resource) {
 			return $resource('http://192.168.43.108:port/recepies/:recepieId', {port:':4000'});
@@ -85,6 +88,7 @@ Open smartkitchen/app/www/js/services.js in your editor/ide of trust and set the
 ```
 
 f. Build the App from comand-line. The platform's name is optional
+
  ```sh
 $ cordova build [myPlatform]
 ```

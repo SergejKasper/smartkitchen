@@ -1,16 +1,31 @@
 <div jqm-page>
+    <!-- Header-->
     <div jqm-header> 
-        <a jqm-button class = "ui-btn-left" href = "#/">
-        Home
+        <a jqm-button icon="ui-icon-home" jqm-theme="b" class = "ui-btn-left" href="#/recepies">
+            Home
         </a>
         <h1>{{recepie.name}}</h1> 
+        <a jqm-button icon="ui-icon-flat-camera" jqm-theme="b" class = "ui-btn-right" data-ng-click="takePicture()">
+            Camera
+        </a>
     </div>
     <!-- Recepie Details-->
-    <div class="" style="top:138px;">
-        <ul class="">
-            <li ng-repeat="ingredient in recepie.ingredients | filter:query | orderBy:orderProp" class="">
+    <div class="" style="top:138px; width: 80%; margin: auto;">
+        <ul jqm-listview class="ui-listview" inset="true">
+            <li jqm-li-divider jqm-theme="b" >Ingredients</li>
+            <li jqm-li-entry ng-repeat="ingredient in recepie.ingredients">
                 {{ingredient}}
             </li>
         </ul>
+        <div>
+            <ul jqm-listview class="ui-listview" inset="true">
+                <li jqm-li-divider jqm-theme="b" >Picture</li>
+                <li jqm-li-entry>
+                   <img ng-src="{{recepie.picture}}" style="margin: auto; width:100%;  display: block;" ng-show="recepie.picture"/>
+                   <img ng-src="img/takePic.png" style="margin: auto; width:100%; display: block;" ng-hide="recepie.picture"/>
+                   <p style="color: #afa1a1;">{{error}}</p>
+                </li>           
+            </ul>
+        </div>
     </div>
 </div>

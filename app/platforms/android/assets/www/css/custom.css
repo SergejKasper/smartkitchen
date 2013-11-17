@@ -1,3 +1,14 @@
+.ui-panel{
+	background: #ccc url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAF0lEQVQIW2P89evXGQYoYPwPBHAOsgwADdYLdDijR6MAAAAASUVORK5CYII=) repeat;
+}
+
+.ui-page{
+	background: #fff url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAACCAYAAACddGYaAAAAIUlEQVQIW2NkAAKRhW0+DEz/zzKKLGg3fpNQeVZkcaskAFseCK3ou6jNAAAAAElFTkSuQmCC) repeat;
+}
+
+.ui-listview{
+	box-shadow: 2px 2px 5px;
+}
 .button-container {
 	width: 80%; 
 	margin: auto; 

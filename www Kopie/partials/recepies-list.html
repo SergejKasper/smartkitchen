@@ -1,0 +1,16 @@
+<div jqm-page>
+    <!-- Header -->
+    <div jqm-header>
+      <div class="ui-btn-left" jqm-button ng-click="$root.panel='left'">left</div>
+      <h1>Header</h1>
+    </div>
+    <!-- Recepie List-->
+    <div class="" style="top:138px;">
+            <h3>Recepies</h3>
+            <div ng-repeat="recepie in recepies" class="button-container">
+                <a jqm-button class = "ui-btn-center" href = "#/recepies/{{recepie._id}}">
+                    {{recepie.name}}
+                </a>
+            </div>
+    </div>
+</div>

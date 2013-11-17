@@ -8,8 +8,8 @@ var app = express();
 
 var allowCrossDomain = function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE, OPTIONS');
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); //X-Requested-With
   next();
  };
 
@@ -63,11 +63,32 @@ app.configure('production', function () {
 });
 
 app.get('/', function(req, res) {
-	res.get('index', {title: 'Node Admin'});
+	res.render('index', {title: 'Smartkitchen Admin', message:  null});
 });
+
+var jsonOnly = function(req, res, next) {
+  if(req.is("application/json")){
+  	  next();
+  }else{
+  	res.send({'error' : 'Invalide Content-Type. Use "application/json"'});
+  }
+};
+
 app.get('/recepies', recepies.findRecepiesAll);
 
 app.get('/recepies/:id', recepies.findRecepieById);
+
+app.put('/recepies/:id', jsonOnly, recepies.updateRecepie);
+
+app.post('/recepies/:id', jsonOnly, recepies.updateRecepie);
+
+app.post('/recepies', jsonOnly, recepies.addRecepie);
+
+app.delete('/recepies/:id', recepies.deleteRecepie);
+
+app.get('/deleteAllRecepies', recepies.deleteRecepiesAll);
+
+app.get('/addRandomRecepie', recepies.addRandomRecepie);
 
 http.createServer(app).listen(app.get('port'), function (argument) {
   console.log('Express server listening on port ' + app.get('port'));
