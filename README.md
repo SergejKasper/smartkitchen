@@ -32,9 +32,12 @@ c. Run the server. You can also pass a custom PORT to listen , if you like
 
 ```sh
 $ cd smartkitchen/server
-$ PORT=5000 node app.js
+$ PORT=4000 node app.js
 ```
 d. access the API at http://localhost:4000/recepies, with 4000 being the default port
+
+e. UPDATE: access admin "controls" at  http://localhost:4000/ to delete all recepies or create random ones. 
+TODO: Message should appear, when a recepie is added.
 
 ### Step 2: Client
 ==========
@@ -48,7 +51,7 @@ http-server [path] [options]
 a. You can install the server with
 
 ```sh
-sudo npm install http-server -g
+sudo npm install -g http-server
 ```
 
 b. Now you can serve the content of smartkitchen/client on a custom port like 9000 with
@@ -61,10 +64,11 @@ The index.html is picked up, when you open http://localhost:9000
 ### Step 3: App
 ==========
 b. Install PhoneGap via npm and go into the app's folder
+UPDATE: Moved the app directly into the "app" folder instead of "app/SmartKitchen"
 
 ```sh
-$ cd smartkitchen/app/SmartKitchen
-$ sudo npm install g cordova
+$ cd smartkitchen/app
+$ sudo npm install -g cordova
 ```
 c. Check for the istalled and availible platforms 
 
