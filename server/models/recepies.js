@@ -35,7 +35,18 @@ exports.findRecepieById = function findRecepieById(req, res) {
 		collection.findOne({
 			'_id': new BSON.ObjectID(id)
 		}, function(err, item) {
-			res.send(item);
+			if (err) {
+				res.send({
+					'error': 'Could not get Recepie with id: ' + id
+				});
+			} else {
+				if (item) {
+					res.send(item);
+				}else{
+					res.status(404);
+					res.send({'error': 'There is no Recepie with the id: ' + id +' in the database'});
+				}
+			}
 		});
 	});
 };
@@ -44,7 +55,13 @@ exports.findRecepiesAll = function findRecepiesAll(req, res) {
 	console.log('Retrieving all Recepies');
 	db.collection('recepies', function(err, collection) {
 		collection.find().toArray(function(err, items) {
+			if (err) {
+				res.send({
+					'error': 'Could not get all Recepies'
+				});
+			} else {
 			res.send(items);
+			}
 		});
 	});
 };
@@ -128,7 +145,11 @@ db.open(function(err, db) {
 		}, function(err, collection) {
 			if (err) {
 				console.log('There are no recepies! Creating sample recepies');
-				populateDB(initialRecepies);
+				var message = "";
+				for (var i = 0; i < 5; i++) {
+					//add some sample recepies
+					ingredients.makeRecepie(populateRecepies);
+				}
 			}
 		});
 	} else {
@@ -138,8 +159,7 @@ db.open(function(err, db) {
 });
 
 exports.addRandomRecepie = function(req, res) {
-
-	var message = populateDB(ingredients.makeRecepie());
+	var message = ingredients.makeRecepie(populateRecepies);
 	res.render('index', {
 		title: 'Smartkitchen Admin',
 		message: message
@@ -149,7 +169,7 @@ exports.addRandomRecepie = function(req, res) {
 /*---------- Populate DB
 ----------------------------------*/
 
-populateDB = function populateDB(recepies) {
+populateRecepies = function populateRecepies(recepies) {
 	var message;
 	db.collection('recepies', function(err, collection) {
 		collection.insert(recepies, {

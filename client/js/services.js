@@ -3,7 +3,7 @@
 angular.module('RecepiesApp.restServices', ['ngResource'])
 	.factory('Recepie', ['$resource',
 		function($resource) {
-			return $resource('http://192.168.43.108:port/recepies/:recepieId', {
+			return $resource('http://localhost:port/recepies/:recepieId', {
 				port: ':4000', recepieId: '@_id' },{
 		        remove: {method: 'DELETE'},
 		        update:   {method: 'PUT'},

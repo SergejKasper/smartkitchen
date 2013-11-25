@@ -1,19 +1,19 @@
 var http = require('http'),
-express = require('express'),
-logger = require('./logger'),
-recepies = require('./models/recepies'),
-path = require('path');
+	express = require('express'),
+	logger = require('./logger'),
+	recepies = require('./models/recepies'),
+	path = require('path');
 
 var app = express();
 
 var allowCrossDomain = function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); //X-Requested-With
-  next();
- };
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept"); //X-Requested-With
+	next();
+};
 
-app.configure(function (argument) {
+app.configure(function(argument) {
 
 	app.use(logger('was requested'));
 
@@ -25,7 +25,7 @@ app.configure(function (argument) {
 	// file uploads, form posts and similar actions.
 	app.use(express.bodyParser());
 
-		//Add CORS Support
+	//Add CORS Support
 
 	app.use(allowCrossDomain);
 
@@ -50,29 +50,36 @@ app.configure(function (argument) {
 
 });
 
-app.configure('development', function () {
-  // Use Express' error handler module for detailed error messages
-  // in development mode.
-  app.use(express.errorHandler());
+app.configure('development', function() {
+	// Use Express' error handler module for detailed error messages
+	// in development mode.
+	app.use(express.errorHandler());
 
-  // Add additional configuration here ...
+	// Add additional configuration here ...
 });
 
-app.configure('production', function () {
-  // Add additional configuration here ...
+app.configure('production', function() {
+	// Add additional configuration here ...
 });
 
 app.get('/', function(req, res) {
-	res.render('index', {title: 'Smartkitchen Admin', message:  null});
+	res.render('index', {
+		title: 'Smartkitchen Admin',
+		message: null
+	});
 });
 
 var jsonOnly = function(req, res, next) {
-  if(req.is("application/json")){
-  	  next();
-  }else{
-  	res.send({'error' : 'Invalide Content-Type. Use "application/json"'});
-  }
+	if (req.is("application/json")) {
+		next();
+	} else {
+		res.send({
+			'error': 'Invalide Content-Type. Use "application/json"'
+		});
+	}
 };
+
+// recepies API
 
 app.get('/recepies', recepies.findRecepiesAll);
 
@@ -90,6 +97,18 @@ app.get('/deleteAllRecepies', recepies.deleteRecepiesAll);
 
 app.get('/addRandomRecepie', recepies.addRandomRecepie);
 
-http.createServer(app).listen(app.get('port'), function (argument) {
-  console.log('Express server listening on port ' + app.get('port'));
+//ingredients API
+
+app.get('/ingredients', ingredients.findIngredientsAll);
+
+app.get('/ingredients/:id', ingredients.findIngredientById);
+
+app.put('/ingredients/:id', jsonOnly, ingredients.updateIngredient);
+
+app.post('/ingredients/:id', jsonOnly, ingredients.updateIngredient);
+
+app.post('/ingredients', jsonOnly, ingredients.addIngredient);
+
+http.createServer(app).listen(app.get('port'), function(argument) {
+	console.log('Express server listening on port ' + app.get('port'));
 });
