@@ -2,6 +2,7 @@ var http = require('http'),
 	express = require('express'),
 	logger = require('./logger'),
 	recepies = require('./models/recepies'),
+	ingredients = require('./models/ingredients'),
 	path = require('path');
 
 var app = express();

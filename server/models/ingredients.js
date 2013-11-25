@@ -2,14 +2,15 @@ var mongo = require('mongodb');
 var http = require('http');
 var Server = mongo.Server,
 	Db = mongo.Db,
-	BSON = mongo.BSONPure;
+	BSON = mongo.BSONPure,
+	databaseName = process.env.DB || 'cookingdb';
 //server
 var server = new Server('localhost', 27017, {
 	auto_reconnect: true
 });
 
 //database
-var db = new Db('cookingdb', server);
+var db = new Db(databaseName, server);
 
 //sample values for recepies
 var initialIngredients = [{

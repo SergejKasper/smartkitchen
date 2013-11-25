@@ -28,26 +28,51 @@ a. [Install](http://nodejs.org/) Node.js
 
 b. [Install](http://docs.mongodb.org/manual/installation/) MongoDB 
 
-c. Run the server. You can also pass a custom PORT to listen , if you like
+c. Run the server. You can also pass a custom PORT and DB-name to listen , if you like
+
 ```sh
 $ cd smartkitchen/server
-$ PORT=4000 node app.js
+$ PORT=4000 DB="cookingdb" node app
 ```
 
-UPDATE: Did forget to mention that you also have to run Mongo: {YOUR_MONGO_HOME}/bin --> mongo
-When accessing mongo from commandline (Unix example) you can drop the db after it was created by the server with: 
+Run Mongo 
 ```sh
-./mongo cookingdb --eval "db.dropDatabase()"
+cd {YOUR_MONGO_HOME}/bin
+./mongod //will run mongo in current shell
+
+./mongod --fork --logpath ../logs/db.log //will run mongo as deamon and log into {YOUR_MONGO_HOME}/logs/db.log
+```
+
+Use Mongo Command Line Interface
+```sh
+//open mongo cli
+cd {YOUR_MONGO_HOME}/bin
+./mongo
+
+//list databases
+
+	> show dbs
+
+//drop a mongodb
+
+	> cookingdb --eval "db.dropDatabase()" 
+
+
+//shutdown server
+
+	> use admin
+	> db.shutdownServer()
+
 ```
 
 d. access the API at http://localhost:4000/recepies, with 4000 being the default port
 UPDATE v2: You can access the ingredients as well http://localhost:4000/ingredients
 The pattern for CRUD opperations is conventional:
 
-GET: recepies/ --> all Recepies, 
-GET: ingredients/ --> all Ingredients, 
-GET, POST, PUT or DELETE: recepies/{id} --> get, save, update or delete a Recepie
-GET, POST, PUT or DELETE: ingredients/{id} --> get, save, update or delete an Ingredient
+	GET: recepies/ --> all Recepies, 
+	GET: ingredients/ --> all Ingredients, 
+	GET, POST, PUT or DELETE: recepies/{id} --> get, save, update or delete a Recepie
+	GET, POST, PUT or DELETE: ingredients/{id} --> get, save, update or delete an Ingredient
 
 e. UPDATE: access admin "controls" at  http://localhost:4000/ to delete all recepies or create random ones. 
 
