@@ -29,14 +29,28 @@ a. [Install](http://nodejs.org/) Node.js
 b. [Install](http://docs.mongodb.org/manual/installation/) MongoDB 
 
 c. Run the server. You can also pass a custom PORT to listen , if you like
-
 ```sh
 $ cd smartkitchen/server
 $ PORT=4000 node app.js
 ```
+
+UPDATE: Did forget to mention that you also have to run Mongo: {YOUR_MONGO_HOME}/bin --> mongo
+When accessing mongo from commandline (Unix example) you can drop the db after it was created by the server with: 
+```sh
+./mongo cookingdb --eval "db.dropDatabase()"
+```
+
 d. access the API at http://localhost:4000/recepies, with 4000 being the default port
+UPDATE v2: You can access the ingredients as well http://localhost:4000/ingredients
+The pattern for CRUD opperations is conventional:
+
+GET: recepies/ --> all Recepies, 
+GET: ingredients/ --> all Ingredients, 
+GET, POST, PUT or DELETE: recepies/{id} --> get, save, update or delete a Recepie
+GET, POST, PUT or DELETE: ingredients/{id} --> get, save, update or delete an Ingredient
 
 e. UPDATE: access admin "controls" at  http://localhost:4000/ to delete all recepies or create random ones. 
+
 TODO: Message should appear, when a recepie is added.
 
 ### Step 2: Client
