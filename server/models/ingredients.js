@@ -44,11 +44,7 @@ var initialIngredients = [{
 }, {
 	"name": "Hard margarine"
 }, {
-	"name": "Hydrogenated fats and oils"
-}, {
 	"name": "Partially hydrogenated fats and oils"
-}, {
-	"name": "Shortening"
 }, {
 	"name": "Sodium"
 }, {
