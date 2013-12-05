@@ -23,10 +23,36 @@
     	    		<div class="alert alert-success"><%=message.content %></div>
     	    	<%} %>
     		<%} %>
+        <div class="alert alert-success" id="ingredientSuccess" style="display: none;">Ingredient saved <span id="ingredientName"></span></div>
+        <div class="alert alert-danger" id="ingredientFail" style="display: none;">Ingredient not saved. Error: <span id="ingredientError"></span></div>
   		</div>
   	</div>
   	<div class="row">
-  		<div class="col-md-6">
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <div class="caption">
+            <h3> Insert an ingredient</h3>
+            <p>Inserts an ingredient with a name of your choice.</p>
+            <form action="/ingredients" id="addIngredient">
+              <input type="text" name="name" placeholder="Name" />
+            <hr>
+              <input class="btn btn-primary btn-lg" type="submit" value="Insert"/>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <div class="caption">
+            <h3> Insert a Recepie</h3>
+            <p>Insert some sample recepies pressing this button. The values are randomly generated from 5 Ingredients in the database. <b>If less than 5 are availible, a set of 30 Ingredients is added automatically to enable creation.</b></p>
+            <form method="GET" action="/addRandomRecepie">
+              <input class="btn btn-primary btn-lg" type="submit" value="Insert"/>
+            </form>
+          </div>
+        </div>
+      </div>
+  		<div class="col-md-3">
   			<div class="thumbnail">
   				<div class="caption">
   					<h3> Delete all recepies</h3>
@@ -37,18 +63,56 @@
   				</div>
   			</div>
   		</div>
-  		<div class="col-md-6">
-  			<div class="thumbnail">
-  				<div class="caption">
-  					<h3> Insert samples</h3>
-  					<p>Insert some sample recepies pressing this button. The values are randomly generated.</p>
-		  			<form method="GET" action="/addRandomRecepie">
-				    	<input class="btn btn-primary btn-lg" type="submit" value="Insert"/>
-				    </form>
-  				</div>
-  			</div>
-  		</div>
+      <div class="col-md-3">
+        <div class="thumbnail">
+          <div class="caption">
+            <h3> Delete all ingredients</h3>
+            <p>You can remove all Ingredients from this database with one click. Be carefull. Not meant for production ;)</p>
+            <form method="GET" action="/deleteAllIngredients">
+              <input class="btn btn-warning btn-lg" type="submit" value="Delete"/>
+            </form>
+          </div>
+        </div>
+      </div>
   	</div>
   	</div>
+   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+    $( "#addIngredient" ).submit(function( event ) {
+     
+      // Stop form from submitting normally
+      event.preventDefault();
+     
+      // Get some values from form
+      var $form = $( this ),
+        ingredientName = $form.find( "input[name='name']" ).val(),
+        url = $form.attr( "action" ),
+        data = {};
+        data.name = ingredientName;
+        jQuery.ajax({
+          'type': 'POST',
+          'url': url,
+          'contentType': 'application/json',
+          'data': JSON.stringify(data),
+          'dataType': 'json',
+          'success': function success(msg) {
+            if (msg.name) {
+                $("#ingredientFail").css("display", "none");
+                $("#ingredientSuccess").css("display", "block");
+                $("#ingredientName").text(msg.name);
+              }else{
+                $("#ingredientFail").css("display", "block");
+                $("#ingredientSuccess").css("display", "none");
+                $("#ingredientError").text($.parseJSON(msg));
+              }
+          },
+          'error': function error(msg) {
+              $("#ingredientFail").css("display", "block");
+              $("#ingredientSuccess").css("display", "none");
+              $("#ingredientError").text(msg.statusText);
+          }
+      });
+    });
+    </script>
   </body>
 </html>

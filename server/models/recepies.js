@@ -67,7 +67,7 @@ exports.findRecepiesAll = function findRecepiesAll(req, res) {
 	});
 };
 
-exports.addRecepie = function addRecepie(req, res) {
+exports.addRecepie = function addRecepie(req, res){
 	var recepie = req.body;
 	console.log('Adding Recepie :' + JSON.stringify(recepie));
 	db.collection('recepies', function(err, collection) {
@@ -149,7 +149,7 @@ db.open(function(err, db) {
 				var message = "";
 				for (var i = 0; i < 5; i++) {
 					//add some sample recepies
-					ingredients.makeRecepie(populateRecepies);
+					ingredients.returnRecepie(populateRecepies, null, null);
 				}
 			}
 		});
@@ -160,17 +160,13 @@ db.open(function(err, db) {
 });
 
 exports.addRandomRecepie = function(req, res) {
-	var message = ingredients.makeRecepie(populateRecepies);
-	res.render('index', {
-		title: 'Smartkitchen Admin',
-		message: message
-	});
+	var message = ingredients.returnRecepie(populateRecepies, req, res);
 };
 
 /*---------- Populate DB
 ----------------------------------*/
 
-populateRecepies = function populateRecepies(recepies) {
+populateRecepies = function populateRecepies(recepies, req, res) {
 	var message;
 	db.collection('recepies', function(err, collection) {
 		collection.insert(recepies, {
@@ -179,8 +175,24 @@ populateRecepies = function populateRecepies(recepies) {
 			if (err) {
 				console.log('Could not insert DB-Data!');
 				message = {'error': true, 'content': err};
+				if(req && res){
+					res.render('index', {
+						title: 'Smartkitchen Admin',
+						message: message
+					});
+				}else{
+					console.log(message);
+				}
 			}else{
 				message = {'error': false, 'content': "Successfully added recepie(s)! "};
+				if(req && res){
+					res.render('index', {
+						title: 'Smartkitchen Admin',
+						message: message
+					});
+				}else{
+					console.log(message);
+				}
 			}
 		});
 	});

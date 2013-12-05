@@ -75,7 +75,7 @@ var jsonOnly = function(req, res, next) {
 		next();
 	} else {
 		res.send({
-			'error': 'Invalide Content-Type. Use "application/json"'
+			'error': 'Invalide Content-Type. Use application/json'
 		});
 	}
 };
@@ -109,6 +109,10 @@ app.put('/ingredients/:id', jsonOnly, ingredients.updateIngredient);
 app.post('/ingredients/:id', jsonOnly, ingredients.updateIngredient);
 
 app.post('/ingredients', jsonOnly, ingredients.addIngredient);
+
+app.delete('/ingredients/:id', ingredients.deleteIngredient);
+
+app.get('/deleteAllIngredients', ingredients.deleteIngredientsAll);
 
 http.createServer(app).listen(app.get('port'), function(argument) {
 	console.log('Express server listening on port ' + app.get('port'));

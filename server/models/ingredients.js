@@ -197,6 +197,7 @@ db.open(function(err, db) {
 		}, function(err, collection) {
 			if (err) {
 				console.log('There are no ingredients! Creating sample ingredients');
+				//populate DB with ingredients, if the collection does not exist
 				populateIngredients(initialIngredients);
 			}
 		});
@@ -262,27 +263,45 @@ exports.deleteIngredientsAll = function deleteIngredientsAll(req, res) {
 	});
 };
 
-exports.makeRecepie = function makeRecepie(populate) {
+//if there are not enough ingredients,
+//add all sample ingredients to enable the creation of a recepie
+//populateIngredients(initialIngredients);
+exports.returnRecepie = function returnRecepie(populate, req, res) {
 	var randomRecepie = {};
 	randomRecepie.name = "";
 	randomRecepie.ingredients = [];
 	var ingredientList = [];
 	var ingr;
 	var ingrNr;
+	var message;
+	//how many ingredients are in a recepie
 	var numberOfIngr = 5;
 	db.collection('ingredients', function(err, collection) {
 		collection.find().toArray(function(err, ingredientList) {
-			for (var i = 0; i < numberOfIngr; i++) {
-				ingrNr = Math.floor(Math.random() * ingredientList.length);
-				ingr = ingredientList[ingrNr];
-				ingredientList.splice(ingrNr, 1);
-				randomRecepie.name += ingr.name;
-				if (i < numberOfIngr - 1) {
-					randomRecepie.name += " ";
+			if (ingredientList.length < numberOfIngr) {
+				message = {'error': true, 'content': "There are not enough ingredients in the DB to create a recepie! "};
+				if(req && res){
+					res.render('index', {
+						title: 'Smartkitchen Admin',
+						message: message
+					});
+				}else{
+					console.log(message);
 				}
-				randomRecepie.ingredients.push(ingr);
+			}else{
+				//add random ingredients to sample recepie
+				for (var i = 0; i < numberOfIngr; i++) {
+					ingrNr = Math.floor(Math.random() * ingredientList.length);
+					ingr = ingredientList[ingrNr];
+					ingredientList.splice(ingrNr, 1);
+					randomRecepie.name += ingr.name;
+					if (i < numberOfIngr - 1) {
+						randomRecepie.name += " ";
+					}
+					randomRecepie.ingredients.push(ingr);
+				}
+				message = populate(randomRecepie, req, res);
 			}
-			populate(randomRecepie);
 		});
 	});
 };
