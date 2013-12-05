@@ -28,7 +28,7 @@
   		</div>
   	</div>
   	<div class="row">
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
           <div class="caption">
             <h3> Insert an ingredient</h3>
@@ -41,33 +41,36 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
           <div class="caption">
             <h3> Insert a Recepie</h3>
-            <p>Insert some sample recepies pressing this button. The values are randomly generated from 5 Ingredients in the database. <b>If less than 5 are availible, a set of 30 Ingredients is added automatically to enable creation.</b></p>
+            <p>Insert some sample recepies pressing this button. The values are randomly generated from 5 Ingredients in the database.</p>
+            <hr>
             <form method="GET" action="/addRandomRecepie">
               <input class="btn btn-primary btn-lg" type="submit" value="Insert"/>
             </form>
           </div>
         </div>
       </div>
-  		<div class="col-md-3">
+  		<div class="col-md-3 col-sm-6">
   			<div class="thumbnail">
   				<div class="caption">
   					<h3> Delete all recepies</h3>
   					<p>You can remove all recepies from this database with one click. Be carefull. Not meant for production ;)</p>
+            <hr>
   					<form method="GET" action="/deleteAllRecepies">
 		    			<input class="btn btn-warning btn-lg" type="submit" value="Delete"/>
 		    		</form>
   				</div>
   			</div>
   		</div>
-      <div class="col-md-3">
+      <div class="col-md-3 col-sm-6">
         <div class="thumbnail">
           <div class="caption">
             <h3> Delete all ingredients</h3>
             <p>You can remove all Ingredients from this database with one click. Be carefull. Not meant for production ;)</p>
+            <hr>
             <form method="GET" action="/deleteAllIngredients">
               <input class="btn btn-warning btn-lg" type="submit" value="Delete"/>
             </form>
