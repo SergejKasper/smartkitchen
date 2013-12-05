@@ -69,10 +69,10 @@ d. access the API at http://localhost:4000/recepies, with 4000 being the default
 UPDATE v2: You can access the ingredients as well http://localhost:4000/ingredients
 The pattern for CRUD opperations is conventional:
 
-	GET: recepies/ --> all Recepies, 
-	GET: ingredients/ --> all Ingredients, 
-	GET, POST, PUT or DELETE: recepies/{id} --> get, save, update or delete a Recepie
-	GET, POST, PUT or DELETE: ingredients/{id} --> get, save, update or delete an Ingredient
+	GET, POST: recepies/ --> all Recepies, add a Recepie
+	GET, POST: ingredients/ --> all Ingredients, add an Ingredient
+	GET, PUT or DELETE: recepies/{id} --> get, update or delete a Recepie
+	GET, PUT or DELETE: ingredients/{id} --> get, update or delete an Ingredient
 
 e. UPDATE: access admin "controls" at  http://localhost:4000/ to delete all recepies or create random ones. 
 
